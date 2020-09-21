@@ -11,12 +11,10 @@ public interface TaskMapper {
 
     default Task taskDtoToTask(TaskDto taskDto) {
         Task task = new Task();
-        task.setIdOfCreator(taskDto.getUserId());
         task.setDateOfCreated(LocalDate.now());
-        task.setDateOfStatusChange(LocalDate.now());
         task.setTitle(taskDto.getTitle());
         task.setDescription(taskDto.getDescription());
-        task.setStatus(TaskStatus.VIEW);
+        task.setStatus(TaskStatus.valueOf(taskDto.getStatus()));
         return task;
     }
 }

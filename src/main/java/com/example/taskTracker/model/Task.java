@@ -16,17 +16,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
     private LocalDate dateOfCreated;
-    private LocalDate dateOfStatusChange;
 
     public Task() {
-    }
-
-    public LocalDate getDateOfStatusChange() {
-        return dateOfStatusChange;
-    }
-
-    public void setDateOfStatusChange(LocalDate dateOfStatusChange) {
-        this.dateOfStatusChange = dateOfStatusChange;
     }
 
     public Long getIdOfCreator() {
