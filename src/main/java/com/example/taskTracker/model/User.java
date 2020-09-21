@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "users")
@@ -18,7 +19,8 @@ public class User {
     private String email;
     private String password;
     private LocalDate dateOfRegister;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
+    @Cascade(value = {org.hibernate.annotations.CascadeType.DELETE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private Set<Task> tasks;
 
     public String getPassword() {

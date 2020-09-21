@@ -12,11 +12,13 @@ public interface UserService {
 
     User create(UserDto user);
 
-    void delete(Long id);
+    void delete(Long userId);
 
-    UserResponseDto getUserResponseDtoById(Long id);
+    UserResponseDto getUserResponseDtoById(Long userId);
 
-    User update(Long id, UserDto user);
+    User update(Long userId, UserDto user);
+
+    User updateTasks(Long userId, Task task);
 
     Page<UserResponseDto> getAllUsers(Integer page, Integer usersOnPage);
 }

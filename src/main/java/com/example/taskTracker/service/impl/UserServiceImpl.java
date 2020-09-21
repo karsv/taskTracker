@@ -1,14 +1,12 @@
 package com.example.taskTracker.service.impl;
 
 import com.example.taskTracker.dao.UserEntityRepository;
-import com.example.taskTracker.dto.TaskDto;
 import com.example.taskTracker.dto.UserDto;
 import com.example.taskTracker.dto.UserResponseDto;
 import com.example.taskTracker.exceptions.UserServiceException;
 import com.example.taskTracker.model.Task;
 import com.example.taskTracker.model.User;
 import com.example.taskTracker.service.UserService;
-import com.example.taskTracker.util.mapper.TaskMapper;
 import com.example.taskTracker.util.mapper.UserMapper;
 import javax.validation.Valid;
 import java.util.Optional;
@@ -72,6 +70,19 @@ public class UserServiceImpl implements UserService {
             updatedUser.setPassword(user.getPassword());
             return userEntityRepository.save(updatedUser);
         }).orElseThrow(() -> new UserServiceException("No such user!"));
+    }
+
+    @Override
+    @Transactional
+    public User updateTasks(Long id, Task task) {
+        User user = userEntityRepository.findById(id)
+                .orElseThrow(() -> new UserServiceException("No such user!"));
+        if (user.getTasks().contains(task)) {
+            user.getTasks().remove(task);
+        } else {
+            user.getTasks().add(task);
+        }
+        return userEntityRepository.save(user);
     }
 
     @Override
