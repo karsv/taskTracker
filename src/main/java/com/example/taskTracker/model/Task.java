@@ -10,7 +10,7 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long idOfCreator;
+    private Long userId;
     private String title;
     private String description;
     @Enumerated(EnumType.STRING)
@@ -20,12 +20,12 @@ public class Task {
     public Task() {
     }
 
-    public Long getIdOfCreator() {
-        return idOfCreator;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setIdOfCreator(Long idOfCreator) {
-        this.idOfCreator = idOfCreator;
+    public void setUserId(Long idOfCreator) {
+        this.userId = idOfCreator;
     }
 
     public Long getId() {

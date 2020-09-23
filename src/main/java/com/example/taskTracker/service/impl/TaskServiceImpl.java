@@ -2,7 +2,6 @@ package com.example.taskTracker.service.impl;
 
 import com.example.taskTracker.dao.TaskEntityRepository;
 import com.example.taskTracker.dto.TaskDto;
-import com.example.taskTracker.dto.UserResponseDto;
 import com.example.taskTracker.exceptions.TaskServiceException;
 import com.example.taskTracker.model.Task;
 import com.example.taskTracker.model.TaskStatus;
@@ -32,7 +31,7 @@ public class TaskServiceImpl implements TaskService {
     public Task create(Long userId, TaskDto taskDto) {
         try {
             Task task = Mappers.getMapper(TaskMapper.class).taskDtoToTask(taskDto);
-            task.setIdOfCreator(userId);
+            task.setUserId(userId);
             Task savedTask = taskEntityRepository.save(task);
             userService.addTask(userId, savedTask);
             return savedTask;
@@ -72,7 +71,7 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     public Task update(Long taskId, Long userId, TaskDto taskDto) {
         Task task = getById(taskId);
-        task.setIdOfCreator(userId);
+        task.setUserId(userId);
         task.setStatus(TaskStatus.valueOf(taskDto.getStatus()));
         task.setTitle(taskDto.getTitle());
         task.setDescription(taskDto.getDescription());
@@ -91,7 +90,7 @@ public class TaskServiceImpl implements TaskService {
     public void delete(Long id) {
         Task task = taskEntityRepository.findById(id)
                 .orElseThrow(() -> new TaskServiceException("No task with such id!"));
-        userService.updateTasks(task.getIdOfCreator(), task);
+        userService.updateTasks(task.getUserId(), task);
         taskEntityRepository.deleteById(id);
     }
 }

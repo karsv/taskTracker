@@ -3,7 +3,6 @@ package com.example.taskTracker.service;
 import com.example.taskTracker.dto.TaskDto;
 import com.example.taskTracker.model.Task;
 import com.example.taskTracker.model.TaskStatus;
-import java.util.List;
 import org.springframework.data.domain.Page;
 
 public interface TaskService {
