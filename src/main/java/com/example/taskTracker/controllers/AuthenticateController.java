@@ -61,7 +61,7 @@ public class AuthenticateController {
             throws Exception {
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
         UserDetails userDetails = userDetailsService.
-        loadUserByUsername(authenticationRequest.getEmail());
+                loadUserByUsername(authenticationRequest.getEmail());
         String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }

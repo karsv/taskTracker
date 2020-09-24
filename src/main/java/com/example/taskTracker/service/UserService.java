@@ -1,6 +1,5 @@
 package com.example.taskTracker.service;
 
-import com.example.taskTracker.dto.TaskDto;
 import com.example.taskTracker.dto.UserDto;
 import com.example.taskTracker.dto.UserResponseDto;
 import com.example.taskTracker.model.Task;

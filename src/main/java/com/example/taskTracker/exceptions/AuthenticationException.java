@@ -1,6 +1,6 @@
 package com.example.taskTracker.exceptions;
 
-public class AuthenticationException extends RuntimeException{
+public class AuthenticationException extends RuntimeException {
     public AuthenticationException() {
     }
 

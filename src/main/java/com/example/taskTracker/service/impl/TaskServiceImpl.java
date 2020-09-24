@@ -35,7 +35,7 @@ public class TaskServiceImpl implements TaskService {
             Task savedTask = taskEntityRepository.save(task);
             userService.addTask(userId, savedTask);
             return savedTask;
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new TaskServiceException("No such status for task!");
         }
     }

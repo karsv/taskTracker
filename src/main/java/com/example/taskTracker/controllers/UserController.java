@@ -28,13 +28,13 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateUser(@PathVariable(value = "id") Long id,
-                                     @RequestBody UserDto userDto){
+                                     @RequestBody UserDto userDto) {
 
         return new ResponseEntity(userService.update(id, userDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable(value = "id") Long id){
+    public ResponseEntity deleteUser(@PathVariable(value = "id") Long id) {
         userService.delete(id);
         return new ResponseEntity("User with id: " + id + " was deleted!", HttpStatus.OK);
     }

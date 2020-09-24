@@ -1,6 +1,5 @@
 package com.example.taskTracker.controllers;
 
-import com.example.taskTracker.dao.UserEntityRepository;
 import com.example.taskTracker.dto.TaskDto;
 import com.example.taskTracker.dto.UserDto;
 import com.example.taskTracker.model.TaskStatus;
