@@ -5,17 +5,23 @@ import com.example.taskTracker.exceptions.TaskServiceException;
 import com.example.taskTracker.model.Task;
 import com.example.taskTracker.model.TaskStatus;
 import com.example.taskTracker.service.TaskService;
+import com.example.taskTracker.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
 @RequestMapping("/tasks")
 public class TaskController {
     private final TaskService taskService;
+    private final UserService userService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, UserService userService) {
         this.taskService = taskService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -38,8 +44,11 @@ public class TaskController {
 
     @PostMapping
     ResponseEntity createTask(@RequestBody TaskDto taskDto) {
-        //TODO: in security change user id by id from userDetailsService
-        Task task = taskService.create(1L, taskDto);
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Task task = taskService.create(userService.
+                getUserByEmail(userDetails.getUsername()).
+                getId(), taskDto);
         return new ResponseEntity(task, HttpStatus.OK);
     }
 
@@ -47,10 +56,13 @@ public class TaskController {
     ResponseEntity updateTask(@PathVariable Long id,
                               @RequestBody(required = false) TaskDto taskDto,
                               @RequestParam TaskStatus status) {
-        //TODO: in security change user id by id from userDetailsService
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (taskDto != null) {
             taskDto.setStatus(status.toString());
-            Task task = taskService.update(id, 1L, taskDto);
+            Task task = taskService.update(id,
+                    userService.getUserByEmail(userDetails.getUsername()).getId(),
+                    taskDto);
             return new ResponseEntity(task, HttpStatus.OK);
         } else {
             Task task = taskService.update(id, status);
