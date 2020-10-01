@@ -44,7 +44,7 @@ public class AuthenticateController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity register(@RequestBody @Valid UserDto userRegistrationDto) {
+    public ResponseEntity<User> register(@RequestBody @Valid UserDto userRegistrationDto) {
         try {
             String encodedPassword = passwordEncoder.encode(userRegistrationDto.getPassword());
             userRegistrationDto.setPassword(encodedPassword);

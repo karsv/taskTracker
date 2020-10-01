@@ -33,7 +33,6 @@ public class InitController {
             user.setFirstName("fn" + i);
             user.setLastName("ln" + i);
             user.setPassword(passwordEncoder.encode("test" + i));
-//            user.setDateOfRegister(LocalDate.of(2020, i / 10 + 1, 1 + i/28));
             userService.create(user);
         }
 

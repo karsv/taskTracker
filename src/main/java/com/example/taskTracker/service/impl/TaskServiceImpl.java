@@ -42,11 +42,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task getById(Long id) {
-        Optional<Task> task = taskEntityRepository.findById(id);
-        if (task.isPresent()) {
-            return task.get();
-        }
-        throw new TaskServiceException("No task with such id!");
+        return taskEntityRepository.findById(id)
+                .orElseThrow(() -> new TaskServiceException("No task with such id!"));
     }
 
     @Override

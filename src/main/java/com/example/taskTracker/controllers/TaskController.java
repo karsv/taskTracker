@@ -25,7 +25,7 @@ public class TaskController {
     }
 
     @GetMapping
-    ResponseEntity getTasks(@RequestParam(defaultValue = "0") int page,
+    ResponseEntity<Page<Task>> getTasks(@RequestParam(defaultValue = "0") int page,
                             @RequestParam(defaultValue = "10") int numberOnPage,
                             @RequestParam(defaultValue = "status") String orderBy) {
         Page<Task> tasks;
@@ -43,7 +43,7 @@ public class TaskController {
     }
 
     @PostMapping
-    ResponseEntity createTask(@RequestBody TaskDto taskDto) {
+    ResponseEntity<Task> createTask(@RequestBody TaskDto taskDto) {
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Task task = taskService.create(userService.
@@ -53,7 +53,7 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity updateTask(@PathVariable Long id,
+    ResponseEntity<Task> updateTask(@PathVariable Long id,
                               @RequestBody(required = false) TaskDto taskDto,
                               @RequestParam TaskStatus status) {
         UserDetails userDetails =
@@ -71,7 +71,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity deleteTask(@PathVariable(value = "id") Long id) {
+    ResponseEntity<String> deleteTask(@PathVariable(value = "id") Long id) {
         taskService.delete(id);
         return new ResponseEntity("Task with id: " + id + " was deleted!", HttpStatus.OK);
     }
