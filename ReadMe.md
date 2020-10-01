@@ -1,3 +1,10 @@
+Run project(be sure postgres is installed)
+http://localhost:8080/swagger-ui.html - if you want authenticate controller
+It's a pity, but I haven't got, how authorized via Swagger... This piece of shit hasn't added header... 
+So, for other controllers, it looks like, but You must use "Bearer {token} in authorization. 
+Oh! yeah, for authorized controllers use Postman =)
+
+
 ##Тестовое задание
 Создать приложение Task Tracker с управлением задачами через API.
 Приложение должно содержать:
